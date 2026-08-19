@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every Breath — A Guide to Your Lungs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDF3F1;
+    --bg-alt:#E3ECE8;
+    --surface:#FFFFFF;
+    --ink:#16232A;
+    --ink-soft:#51636A;
+    --teal:#1F7A6C;
+    --teal-deep:#12574C;
+    --teal-soft:#DCEEE9;
+    --coral:#C4573F;
+    --coral-soft:#F4E2DC;
+    --sage:#6E8F63;
+    --sage-soft:#E6EEDF;
+    --line:#D2DFDA;
+    --shadow: 0 20px 50px -25px rgba(18,40,35,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal-deep);
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+  .eyebrow::before{
+    content:'';
+    width:18px; height:1px;
+    background:var(--teal);
+    display:inline-block;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(237,243,241,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px;
+    max-width:1120px; margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .dot{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--teal);
+    animation: breathe 4s ease-in-out infinite;
+  }
+  nav.links{display:flex; gap:28px; font-size:0.88rem; font-weight:500;}
+  nav.links a{text-decoration:none; color:var(--ink-soft); transition:color .2s;}
+  nav.links a:hover{color:var(--teal-deep);}
+  @media(max-width:640px){nav.links{display:none;}}
+
+  @keyframes breathe{
+    0%,100%{transform:scale(1); opacity:0.75;}
+    50%{transform:scale(1.6); opacity:1;}
+  }
+
+  /* HERO */
+  .hero{
+    padding:88px 0 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;
+  }
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    line-height:1.05;
+    margin:18px 0 20px;
+  }
+  .hero h1 em{font-style:italic; color:var(--teal-deep);}
+  .hero p.lede{
+    font-size:1.08rem; color:var(--ink-soft); max-width:46ch;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter', sans-serif; font-weight:600; font-size:0.92rem;
+    padding:13px 24px; border-radius:100px; border:1px solid transparent;
+    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--teal-deep); color:#fff;}
+  .btn-primary:hover{box-shadow:0 12px 24px -10px rgba(18,87,76,0.55);}
+  .btn-ghost{border-color:var(--ink); color:var(--ink); background:transparent;}
+
+  .breath-count{
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--ink-soft);
+    margin-top:26px; display:flex; align-items:center; gap:10px;
+  }
+
+  /* Hero lung SVG */
+  .lung-stage{
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lung-breathe{
+    transform-origin:center;
+    animation: lungscale 4s ease-in-out infinite;
+  }
+  @keyframes lungscale{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.045);}
+  }
+  .alv-pulse{ animation: alvfade 4s ease-in-out infinite; }
+  @keyframes alvfade{
+    0%,100%{opacity:0.5;}
+    50%{opacity:0.95;}
+  }
+
+  section{padding:76px 0;}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .section-head h2{font-size:clamp(1.7rem,3.2vw,2.3rem); margin-top:14px;}
+  .section-head p{color:var(--ink-soft); margin-top:12px; font-size:1rem;}
+
+  /* ANATOMY */
+  #anatomy{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .anatomy-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;
+  }
+  @media(max-width:860px){.anatomy-grid{grid-template-columns:1fr;}}
+  .anatomy-svg-wrap{
+    background:var(--bg-alt); border-radius:24px; padding:24px;
+    border:1px solid var(--line);
+  }
+  .hotspot{
+    cursor:pointer;
+  }
+  .hotspot circle.ring{
+    fill:var(--teal); stroke:#fff; stroke-width:2;
+    transition: r .2s ease, fill .2s ease;
+  }
+  .hotspot text{
+    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:600; fill:#fff;
+    text-anchor:middle; dominant-baseline:central; pointer-events:none;
+  }
+  .hotspot.active circle.ring{fill:var(--coral);}
+  .hotspot:hover circle.ring{r:12;}
+
+  .part-panel{
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:20px;
+    padding:28px;
+    min-height:340px;
+  }
+  .part-list{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .part-chip{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem;
+    padding:6px 12px; border-radius:100px; border:1px solid var(--line);
+    background:#fff; cursor:pointer; color:var(--ink-soft);
+    transition:all .15s ease;
+  }
+  .part-chip.active{background:var(--teal-deep); color:#fff; border-color:var(--teal-deep);}
+  .part-detail h3{font-size:1.3rem; margin-bottom:6px;}
+  .part-detail .role{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--teal-deep); margin-bottom:14px; display:block;
+  }
+  .part-detail p{color:var(--ink-soft); font-size:0.96rem;}
+
+  /* DISEASES */
+  #diseases .section-head .eyebrow{color:var(--coral);}
+  .disease-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  }
+  @media(max-width:860px){.disease-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.disease-grid{grid-template-columns:1fr;}}
+  .disease-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:18px;
+    padding:22px; cursor:pointer; transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .disease-card:hover{box-shadow:var(--shadow); transform:translateY(-3px);}
+  .disease-card .tag{
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--coral);
+    background:var(--coral-soft); display:inline-block; padding:4px 10px; border-radius:100px;
+    margin-bottom:12px;
+  }
+  .disease-card h3{font-size:1.15rem; margin-bottom:8px;}
+  .disease-card p.hint{color:var(--ink-soft); font-size:0.88rem;}
+  .disease-card .expand{
+    margin-top:14px; font-size:0.82rem; color:var(--teal-deep); font-weight:600;
+    display:flex; align-items:center; gap:6px;
+  }
+  .disease-detail{
+    display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+    font-size:0.88rem; color:var(--ink-soft);
+  }
+  .disease-detail.open{display:block;}
+  .disease-detail strong{color:var(--ink); font-weight:600;}
+  .disease-detail .row{margin-bottom:10px;}
+
+  /* PREVENTION */
+  #prevention{background:var(--sage-soft); border-top:1px solid var(--line);}
+  #prevention .eyebrow{color:var(--sage);}
+  #prevention .eyebrow::before{background:var(--sage);}
+  .prevent-layout{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:start;
+  }
+  @media(max-width:860px){.prevent-layout{grid-template-columns:1fr;}}
+  .progress-card{
+    background:var(--surface); border-radius:20px; padding:26px; border:1px solid var(--line);
+    position:sticky; top:96px;
+  }
+  .progress-bar{
+    height:8px; background:var(--bg-alt); border-radius:100px; overflow:hidden; margin:14px 0 6px;
+  }
+  .progress-fill{
+    height:100%; width:0%; background:var(--sage); border-radius:100px;
+    transition:width .4s ease;
+  }
+  .progress-num{font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:var(--ink-soft);}
+  .checklist{display:flex; flex-direction:column; gap:10px;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:14px;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:16px 18px; cursor:pointer; transition:border-color .15s ease;
+  }
+  .check-item:hover{border-color:var(--sage);}
+  .checkbox{
+    width:22px; height:22px; border-radius:6px; border:2px solid var(--sage);
+    flex-shrink:0; margin-top:2px; position:relative; transition:background .15s ease;
+  }
+  .check-item.checked .checkbox{background:var(--sage);}
+  .check-item.checked .checkbox::after{
+    content:''; position:absolute; left:6px; top:2px; width:5px; height:10px;
+    border:solid #fff; border-width:0 2px 2px 0; transform:rotate(40deg);
+  }
+  .check-item.checked .ctext strong{color:var(--sage);}
+  .ctext strong{display:block; font-size:0.95rem; margin-bottom:3px;}
+  .ctext span{font-size:0.85rem; color:var(--ink-soft);}
+
+  footer{
+    padding:48px 0 60px; text-align:center;
+  }
+  .disclaimer{
+    max-width:640px; margin:0 auto; font-size:0.82rem; color:var(--ink-soft);
+    background:var(--surface); border:1px solid var(--line); padding:20px 24px; border-radius:16px;
+  }
+  .foot-brand{margin-top:24px; font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--ink-soft); letter-spacing:0.06em;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span> Every&nbsp;Breath</div>
+    <nav class="links">
+      <a href="#anatomy">Anatomy</a>
+      <a href="#diseases">Diseases</a>
+      <a href="#prevention">Prevention</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Respiratory health, in one place</span>
+      <h1>Your lungs move <em>~11,000&nbsp;litres</em> of air a day. Meet them.</h1>
+      <p class="lede">A field guide to the organ you never think about until it struggles — how it's built, what commonly goes wrong, and the habits that keep it working.</p>
+      <div class="hero-ctas">
+        <a href="#anatomy" class="btn btn-primary">Explore the anatomy →</a>
+        <a href="#prevention" class="btn btn-ghost">Jump to prevention</a>
+      </div>
+      <div class="breath-count">● average resting breath: 12–16 times per minute</div>
+    </div>
+    <div class="lung-stage">
+      <svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="lung-breathe">
+          <path d="M180 50 L180 130" stroke="#1F7A6C" stroke-width="10" stroke-linecap="round"/>
+          <path d="M180 130 C150 140 130 150 118 172" stroke="#1F7A6C" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M180 130 C210 140 230 150 242 172" stroke="#1F7A6C" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M118 172 C90 175 92 235 78 260 C165 280 150 200 118 172Z" fill="#DCEEE9" stroke="#1F7A6C" stroke-width="6"/>
+          <path d="M242 172 C270 175 268 235 282 260 C195 280 210 200 242 172Z" fill="#DCEEE9" stroke="#1F7A6C" stroke-width="6"/>
+          <g class="alv-pulse">
+            <circle cx="105" cy="210" r="5" fill="#1F7A6C"/>
+            <circle cx="120" cy="230" r="4" fill="#1F7A6C"/>
+            <circle cx="95" cy="245" r="4.5" fill="#1F7A6C"/>
+            <circle cx="130" cy="200" r="3.5" fill="#1F7A6C"/>
+            <circle cx="255" cy="210" r="5" fill="#1F7A6C"/>
+            <circle cx="240" cy="230" r="4" fill="#1F7A6C"/>
+            <circle cx="265" cy="245" r="4.5" fill="#1F7A6C"/>
+            <circle cx="230" cy="200" r="3.5" fill="#1F7A6C"/>
+          </g>
+          <path d="M70 265 C160 300 200 300 290 265" stroke="#6E8F63" stroke-width="8" stroke-linecap="round" fill="none"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="anatomy">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Part one</span>
+      <h2>How air actually gets in</h2>
+      <p>Tap a stop on the airway, or a chip below, to read what it does. Air travels through all eight in under two seconds.</p>
+    </div>
+    <div class="anatomy-grid">
+      <div class="anatomy-svg-wrap">
+        <svg viewBox="0 0 320 380" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <path d="M160 20 C150 20 145 35 160 40 C175 35 170 20 160 20Z" fill="#DCEEE9" stroke="#1F7A6C" stroke-width="3"/>
+          <path d="M160 40 L160 90" stroke="#1F7A6C" stroke-width="9" stroke-linecap="round"/>
+          <path d="M160 90 L160 150" stroke="#1F7A6C" stroke-width="11" stroke-linecap="round"/>
+          <path d="M160 150 C130 158 105 168 90 190" stroke="#1F7A6C" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M160 150 C190 158 215 168 230 190" stroke="#1F7A6C" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M90 190 C60 220 55 260 60 290" stroke="#1F7A6C" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M230 190 C260 220 265 260 260 290" stroke="#1F7A6C" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M90 190 C55 195 45 260 30 300 C130 335 120 235 90 190Z" fill="#DCEEE9" stroke="#1F7A6C" stroke-width="5" opacity="0.9"/>
+          <path d="M230 190 C265 195 275 260 290 300 C190 335 200 235 230 190Z" fill="#DCEEE9" stroke="#1F7A6C" stroke-width="5" opacity="0.9"/>
+          <path d="M20 305 C110 345 210 345 300 305" stroke="#6E8F63" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <path d="M255 55 L280 40" stroke="#1F7A6C" stroke-width="6" stroke-linecap="round"/>
+
+          <g class="hotspot" data-part="0"><circle class="ring" cx="160" cy="30" r="10"></circle><text x="160" y="31">1</text></g>
+          <g class="hotspot" data-part="1"><circle class="ring" cx="255" cy="55" r="10"></circle><text x="255" y="56">2</text></g>
+          <g class="hotspot" data-part="2"><circle class="ring" cx="160" cy="115" r="10"></circle><text x="160" y="116">3</text></g>
+          <g class="hotspot" data-part="3"><circle class="ring" cx="120" cy="168" r="10"></circle><text x="120" y="169">4</text></g>
+          <g class="hotspot" data-part="4"><circle class="ring" cx="70" cy="230" r="10"></circle><text x="70" y="231">5</text></g>
+          <g class="hotspot" data-part="5"><circle class="ring" cx="45" cy="280" r="10"></circle><text x="45" y="281">6</text></g>
+          <g class="hotspot" data-part="6"><circle class="ring" cx="160" cy="320" r="10"></circle><text x="160" y="321">7</text></g>
+          <g class="hotspot" data-part="7"><circle class="ring" cx="270" cy="230" r="10"></circle><text x="270" y="231">8</text></g>
+        </svg>
+      </div>
+
+      <div class="part-panel">
+        <div class="part-list" id="chipList"></div>
+        <div class="part-detail" id="partDetail"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="diseases">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Part two</span>
+      <h2>What commonly goes wrong</h2>
+      <p>Six conditions responsible for most lung-related illness worldwide. Tap a card for symptoms and risk factors.</p>
+    </div>
+    <div class="disease-grid" id="diseaseGrid"></div>
+  </div>
+</section>
+
+<section id="prevention">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Part three</span>
+      <h2>Habits that keep lungs working</h2>
+      <p>Check off what you already do. None of this replaces medical care — it's the daily baseline that keeps that care less necessary.</p>
+    </div>
+    <div class="prevent-layout">
+      <div class="progress-card">
+        <span class="eyebrow" style="margin-bottom:0;">Your baseline</span>
+        <h3 style="margin-top:10px; font-size:1.4rem;">Lung-care checklist</h3>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+        <div class="progress-num"><span id="progNum">0</span> / <span id="progTotal">10</span> habits checked</div>
+      </div>
+      <div class="checklist" id="checklist"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      This page is for general education, not medical advice. If you have persistent cough, breathlessness, chest pain, or coughing blood, see a doctor — don't self-diagnose from a website.
+    </div>
+    <div class="foot-brand">EVERY BREATH · A LUNG HEALTH FIELD GUIDE</div>
+  </div>
+</footer>
+
+<script>
+const parts = [
+  {n:"01", name:"Nose & Pharynx", role:"Air conditioning intake", text:"The first stop for every breath. Tiny hairs and mucus trap dust and germs, while blood vessels close to the surface warm and humidify the air before it goes any further."},
+  {n:"02", name:"Larynx", role:"Voice box & gatekeeper", text:"Sits at the top of the windpipe. Its vocal cords produce sound, and a flap called the epiglottis closes over it when you swallow, keeping food out of the airway."},
+  {n:"03", name:"Trachea", role:"The windpipe", text:"A tube reinforced with C-shaped cartilage rings so it never collapses. It funnels air down and splits into two branches just above the heart."},
+  {n:"04", name:"Bronchi", role:"The main forks", text:"Two tubes — one per lung — branching off the trachea. The right bronchus is shorter and more vertical, which is why inhaled objects tend to lodge there."},
+  {n:"05", name:"Bronchioles", role:"The narrowing branches", text:"Thousands of progressively smaller airways, down to less than 1mm wide, ending in tiny grape-like clusters. Asthma attacks happen when muscles around these tubes tighten."},
+  {n:"06", name:"Alveoli", role:"Where gas exchange happens", text:"Around 480 million microscopic air sacs wrapped in capillaries. Oxygen crosses into the blood here, and carbon dioxide crosses out — the entire reason lungs exist."},
+  {n:"07", name:"Diaphragm", role:"The main breathing muscle", text:"A dome-shaped muscle beneath the lungs. It contracts and flattens to pull air in, then relaxes upward to push air out — doing about 80% of the work of breathing."},
+  {n:"08", name:"Pleura", role:"The protective lining", text:"A thin double membrane wrapping each lung, with a slick fluid between the layers so the lungs glide smoothly against the chest wall with every breath."}
+];
+
+const chipList = document.getElementById('chipList');
+const detail = document.getElementById('partDetail');
+
+function renderPart(i){
+  const p = parts[i];
+  detail.innerHTML = `<h3>${p.name}</h3><span class="role">${p.role}</span><p>${p.text}</p>`;
+  document.querySelectorAll('.part-chip').forEach((c,idx)=>c.classList.toggle('active', idx===i));
+  document.querySelectorAll('.hotspot').forEach((h)=>h.classList.toggle('active', Number(h.dataset.part)===i));
+}
+
+parts.forEach((p,i)=>{
+  const chip = document.createElement('div');
+  chip.className='part-chip';
+  chip.textContent = p.n+' '+p.name;
+  chip.addEventListener('click', ()=>renderPart(i));
+  chipList.appendChild(chip);
+});
+document.querySelectorAll('.hotspot').forEach(h=>{
+  h.addEventListener('click', ()=>renderPart(Number(h.dataset.part)));
+});
+renderPart(0);
+
+const diseases = [
+  {tag:"Chronic · Airways", name:"Asthma", hint:"Inflamed, twitchy airways that narrow suddenly.",
+    symptoms:"Wheezing, chest tightness, shortness of breath, coughing — often worse at night or with exercise.",
+    causes:"Allergens, cold air, smoke, exercise, and respiratory infections can trigger flare-ups in people with sensitive airways.",
+    note:"Usually managed long-term with inhalers; most people live full, active lives with it under control."},
+  {tag:"Chronic · Progressive", name:"COPD", hint:"Emphysema and chronic bronchitis, usually together.",
+    symptoms:"Ongoing cough with mucus, breathlessness during everyday activity, wheezing, fatigue.",
+    causes:"Overwhelmingly linked to long-term smoking; also occupational dust, fumes, and some genetic factors.",
+    note:"Damage is largely irreversible, which is why quitting smoking early matters most."},
+  {tag:"Infection · Acute", name:"Pneumonia", hint:"Infection that fills air sacs with fluid.",
+    symptoms:"Fever, chills, cough with phlegm, chest pain when breathing, fatigue.",
+    causes:"Bacteria, viruses, or fungi. Risk rises with age, weakened immunity, or existing lung disease.",
+    note:"Often treatable, but can turn serious quickly in very young, elderly, or immunocompromised people."},
+  {tag:"Infection · Bacterial", name:"Tuberculosis (TB)", hint:"A slow-moving bacterial infection.",
+    symptoms:"Cough lasting more than three weeks, sometimes with blood, night sweats, weight loss, fever.",
+    causes:"Spread through airborne droplets from an infected person; more likely with prolonged close contact.",
+    note:"Curable with a full course of antibiotics — stopping treatment early is the main cause of drug-resistant TB."},
+  {tag:"Cellular · Serious", name:"Lung Cancer", hint:"Abnormal cell growth, often silent early on.",
+    symptoms:"Persistent cough, coughing blood, unexplained weight loss, chest pain, recurring infections.",
+    causes:"Smoking is the leading cause by far; also radon gas, air pollution, asbestos, and family history.",
+    note:"Early symptoms are easy to dismiss — persistence and screening for high-risk groups matter."},
+  {tag:"Inflammatory · Common", name:"Bronchitis", hint:"Inflammation of the bronchial tubes.",
+    symptoms:"Persistent cough with mucus, mild fever, chest discomfort, fatigue.",
+    causes:"Acute cases usually follow a viral cold; chronic bronchitis is driven mainly by long-term smoking.",
+    note:"Acute bronchitis typically clears in one to three weeks on its own."}
+];
+
+const grid = document.getElementById('diseaseGrid');
+diseases.forEach((d,i)=>{
+  const card = document.createElement('div');
+  card.className='disease-card';
+  card.innerHTML = `
+    <span class="tag">${d.tag}</span>
+    <h3>${d.name}</h3>
+    <p class="hint">${d.hint}</p>
+    <div class="expand">Symptoms & causes <span>↓</span></div>
+    <div class="disease-detail" id="dd-${i}">
+      <div class="row"><strong>Symptoms — </strong>${d.symptoms}</div>
+      <div class="row"><strong>Causes / risk — </strong>${d.causes}</div>
+      <div class="row"><strong>Note — </strong>${d.note}</div>
+    </div>
+  `;
+  card.addEventListener('click', ()=>{
+    document.getElementById(`dd-${i}`).classList.toggle('open');
+  });
+  grid.appendChild(card);
+});
+
+const habits = [
+  {t:"Don't smoke — or quit", s:"The single biggest lever for lung health, at any age."},
+  {t:"Avoid secondhand smoke & fumes", s:"Ventilate rooms and avoid prolonged exposure to smoke and strong chemical fumes."},
+  {t:"Exercise regularly", s:"Cardio activity trains the lungs to use oxygen more efficiently over time."},
+  {t:"Practice deep breathing", s:"Diaphragmatic breathing exercises help keep full lung capacity in use."},
+  {t:"Keep indoor air clean", s:"Ventilate cooking areas, avoid indoor pollutants, and consider air filtration if needed."},
+  {t:"Stay up to date on vaccines", s:"Flu and pneumonia vaccines meaningfully lower serious respiratory illness risk."},
+  {t:"Wash hands often", s:"Most respiratory infections spread through contact, not just the air."},
+  {t:"Get regular checkups", s:"Especially important with a smoking history, family history, or workplace exposure."},
+  {t:"Wear a mask in polluted or dusty air", s:"Construction dust, wildfire smoke, and heavy traffic pollution all merit protection."},
+  {t:"Eat well & stay hydrated", s:"Antioxidant-rich foods and good hydration support mucus clearance and tissue repair."}
+];
+
+const checklist = document.getElementById('checklist');
+let checkedCount = 0;
+document.getElementById('progTotal').textContent = habits.length;
+
+habits.forEach((h,i)=>{
+  const item = document.createElement('div');
+  item.className='check-item';
+  item.innerHTML = `<div class="checkbox"></div><div class="ctext"><strong>${h.t}</strong><span>${h.s}</span></div>`;
+  item.addEventListener('click', ()=>{
+    const isChecked = item.classList.toggle('checked');
+    checkedCount += isChecked ? 1 : -1;
+    document.getElementById('progNum').textContent = checkedCount;
+    document.getElementById('progFill').style.width = (checkedCount/habits.length*100)+'%';
+  });
+  checklist.appendChild(item);
+});
+</script>
+
+</body>
+</html>
